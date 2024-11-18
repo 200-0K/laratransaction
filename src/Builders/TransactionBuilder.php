@@ -30,7 +30,7 @@ class TransactionBuilder
     }
 
     /**
-     * @param  string|TransactionStatus|  $status
+     * @param  string|TransactionStatus|TransactionStatusEnum  $status
      */
     public function status($status): self
     {
@@ -71,10 +71,7 @@ class TransactionBuilder
         return $this;
     }
 
-    /**
-     * @param  array|string|null  $currency
-     */
-    public function amount(float $amount, $currency = null): self
+    public function amount(float $amount, ?string $currency = null): self
     {
         $this->attributes['amount'] = $amount;
         $this->attributes['currency'] = $currency ?? $this->attributes['currency'];
@@ -82,10 +79,7 @@ class TransactionBuilder
         return $this;
     }
 
-    /**
-     * @param  array|string  $currency
-     */
-    public function currency($currency): self
+    public function currency(string $currency): self
     {
         $this->attributes['currency'] = $currency;
 
@@ -134,6 +128,14 @@ class TransactionBuilder
         if ($this->transactionable) {
             $transaction->transactionable()->associate($this->transactionable);
         }
+
+        return $transaction;
+    }
+
+    public function save(): Transaction
+    {
+        $transaction = $this->build();
+        $transaction->save();
 
         return $transaction;
     }

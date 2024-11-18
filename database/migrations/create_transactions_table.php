@@ -43,7 +43,7 @@ return new class extends Migration
             )->constrained(config('laratransaction.tables.payment_methods.name'));
 
             $table->decimal('amount', 10, 2);
-            $table->json('currency');
+            $table->string('currency', 3);
             $table->string('gateway')->nullable();
             $table->string('gateway_transaction_id')->nullable();
             $table->json('metadata')->nullable();

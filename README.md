@@ -19,7 +19,6 @@ This package provides a complete transaction management system for Laravel appli
 
 🌍 **Internationalization**
 - Fully localized and translatable
-- Multi-currency support 
 - JSON-based translations
 
 🛠️ **Developer Friendly**
