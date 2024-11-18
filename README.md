@@ -1,8 +1,6 @@
 # Laravel Payment Transactions Helper
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/err0r/laratransaction.svg?style=flat-square)](https://packagist.org/packages/err0r/laratransaction)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/err0r/laratransaction/run-tests.yml?branch=master&label=tests&style=flat-square)](https://github.com/err0r/laratransaction/actions?query=workflow%3Arun-tests+branch%3Amaster)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/err0r/laratransaction/fix-php-code-style-issues.yml?branch=master&label=code%20style&style=flat-square)](https://github.com/err0r/laratransaction/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amaster)
 [![Total Downloads](https://img.shields.io/packagist/dt/err0r/laratransaction.svg?style=flat-square)](https://packagist.org/packages/err0r/laratransaction)
 
 This package provides a complete transaction management system for Laravel applications, offering powerful features: 

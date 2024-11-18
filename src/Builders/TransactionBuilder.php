@@ -34,7 +34,7 @@ class TransactionBuilder
      */
     public function status($status): self
     {
-        $this->attributes['status_id'] = match ($status) {
+        $this->attributes['status_id'] = match (true) {
             $status instanceof TransactionStatus => $status->id,
             $status instanceof TransactionStatusEnum => TransactionStatus::slug($status->value)->first()->id,
             default => TransactionStatus::slug($status)->first()->id,
@@ -48,7 +48,7 @@ class TransactionBuilder
      */
     public function type($type): self
     {
-        $this->attributes['type_id'] = match ($type) {
+        $this->attributes['type_id'] = match (true) {
             $type instanceof TransactionType => $type->id,
             $type instanceof TransactionTypeEnum => TransactionType::slug($type->value)->first()->id,
             default => TransactionType::slug($type)->first()->id,
@@ -62,7 +62,7 @@ class TransactionBuilder
      */
     public function paymentMethod($paymentMethod): self
     {
-        $this->attributes['payment_method_id'] = match ($paymentMethod) {
+        $this->attributes['payment_method_id'] = match (true) {
             $paymentMethod instanceof PaymentMethod => $paymentMethod->id,
             $paymentMethod instanceof PaymentMethodEnum => PaymentMethod::slug($paymentMethod->value)->first()->id,
             default => PaymentMethod::slug($paymentMethod)->first()->id,
@@ -74,7 +74,9 @@ class TransactionBuilder
     public function amount(float $amount, ?string $currency = null): self
     {
         $this->attributes['amount'] = $amount;
-        $this->attributes['currency'] = $currency ?? $this->attributes['currency'];
+        if ($currency !== null) {
+            $this->attributes['currency'] = $currency;
+        }
 
         return $this;
     }
@@ -89,7 +91,9 @@ class TransactionBuilder
     public function gateway(string $gateway, ?string $gatewayTransactionId = null): self
     {
         $this->attributes['gateway'] = $gateway;
-        $this->attributes['gateway_transaction_id'] = $gatewayTransactionId ?? $this->attributes['gateway_transaction_id'];
+        if ($gatewayTransactionId !== null) {
+            $this->attributes['gateway_transaction_id'] = $gatewayTransactionId;
+        }
 
         return $this;
     }

@@ -96,7 +96,7 @@ class Transaction extends Model
      */
     public function isStatus($status): bool
     {
-        $slug = match ($status) {
+        $slug = match (true) {
             $status instanceof TransactionStatus => $status->slug,
             $status instanceof TransactionStatusEnum => $status->value,
             default => $status,
@@ -110,7 +110,7 @@ class Transaction extends Model
      */
     public function isType($type): bool
     {
-        $slug = match ($type) {
+        $slug = match (true) {
             $type instanceof TransactionType => $type->slug,
             $type instanceof TransactionTypeEnum => $type->value,
             default => $type,
@@ -124,7 +124,7 @@ class Transaction extends Model
      */
     public function setStatus($status): Transaction
     {
-        $status = match ($status) {
+        $status = match (true) {
             $status instanceof TransactionStatus => $status,
             $status instanceof TransactionStatusEnum => TransactionStatus::slug($status->value)->first(),
             default => TransactionStatus::slug($status)->first(),
@@ -138,7 +138,7 @@ class Transaction extends Model
      */
     public function setType($type): Transaction
     {
-        $type = match ($type) {
+        $type = match (true) {
             $type instanceof TransactionType => $type,
             $type instanceof TransactionTypeEnum => TransactionType::slug($type->value)->first(),
             default => TransactionType::slug($type)->first(),
@@ -152,7 +152,7 @@ class Transaction extends Model
      */
     public function setPaymentMethod($paymentMethod): Transaction
     {
-        $paymentMethod = match ($paymentMethod) {
+        $paymentMethod = match (true) {
             $paymentMethod instanceof PaymentMethod => $paymentMethod,
             $paymentMethod instanceof PaymentMethodEnum => PaymentMethod::slug($paymentMethod->value)->first(),
             default => PaymentMethod::slug($paymentMethod)->first(),
