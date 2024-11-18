@@ -12,8 +12,8 @@ class TransactionStatus extends Model
 {
     use HasFactory;
     use HasTranslations;
-    use Sluggable;
     use HasUuids;
+    use Sluggable;
 
     public $translatable = [
         'name',
