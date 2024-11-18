@@ -19,6 +19,7 @@ class LaratransactionServiceProvider extends PackageServiceProvider
                 'create_payment_methods_table',
                 'create_transactions_table',
             ])
+            ->hasTranslations()
             ->hasCommand(LaratransactionSeed::class);
     }
 }

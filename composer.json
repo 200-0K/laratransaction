@@ -37,7 +37,8 @@
     "autoload": {
         "psr-4": {
             "Err0r\\Laratransaction\\": "src/",
-            "Err0r\\Laratransaction\\Database\\Factories\\": "database/factories/"
+            "Err0r\\Laratransaction\\Database\\Factories\\": "database/factories/",
+            "Err0r\\Laratransaction\\Database\\Seeders\\": "database/seeders/"
         }
     },
     "autoload-dev": {

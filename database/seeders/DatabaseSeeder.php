@@ -12,7 +12,9 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            // SubscriptionStatusSeeder::class,
+            TransactionStatusSeeder::class,
+            TransactionTypeSeeder::class,
+            PaymentMethodSeeder::class,
         ]);
     }
 }

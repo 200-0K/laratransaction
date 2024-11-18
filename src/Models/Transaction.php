@@ -2,9 +2,10 @@
 
 namespace Err0r\Laratransaction\Models;
 
+use Err0r\Laratransaction\Builders\TransactionBuilder;
+use Err0r\Laratransaction\Enums\PaymentMethod as PaymentMethodEnum;
 use Err0r\Laratransaction\Enums\TransactionStatus as TransactionStatusEnum;
 use Err0r\Laratransaction\Enums\TransactionType as TransactionTypeEnum;
-use Err0r\Laratransaction\Enums\PaymentMethod as PaymentMethodEnum;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -24,7 +25,7 @@ class Transaction extends Model
     protected $with = [
         'status',
         'type',
-
+        'paymentMethod',
     ];
 
     protected $fillable = [
@@ -40,6 +41,9 @@ class Transaction extends Model
     ];
 
     protected $casts = [
+        'status' => TransactionStatusEnum::class,
+        'type' => TransactionTypeEnum::class,
+        'payment_method' => PaymentMethodEnum::class,
         'metadata' => 'array',
         'processed_at' => 'datetime',
     ];
@@ -91,50 +95,78 @@ class Transaction extends Model
         return $query->whereHas('status', fn ($query) => $query->slug(TransactionStatusEnum::CANCELLED->value));
     }
 
-    public function isPending(): bool
+    /**
+     * @param  string|TransactionStatus|TransactionStatusEnum  $status
+     */
+    public function isStatus($status): bool
     {
-        return $this->status->slug === TransactionStatusEnum::PENDING->value;
-    }
+        $slug = match ($status) {
+            $status instanceof TransactionStatus => $status->slug,
+            $status instanceof TransactionStatusEnum => $status->value,
+            default => $status,
+        };
 
-    public function isCompleted(): bool
-    {
-        return $this->status->slug === TransactionStatusEnum::COMPLETED->value;
-    }
-
-    public function isFailed(): bool
-    {
-        return $this->status->slug === TransactionStatusEnum::FAILED->value;
-    }
-
-    public function isCancelled(): bool
-    {
-        return $this->status->slug === TransactionStatusEnum::CANCELLED->value;
+        return $this->status->slug === $slug;
     }
 
     /**
-     * @param TransactionStatusEnum|string $status
+     * @param  string|TransactionType|TransactionTypeEnum  $type
+     */
+    public function isType($type): bool
+    {
+        $slug = match ($type) {
+            $type instanceof TransactionType => $type->slug,
+            $type instanceof TransactionTypeEnum => $type->value,
+            default => $type,
+        };
+
+        return $this->type->slug === $slug;
+    }
+
+    /**
+     * @param  TransactionStatus|TransactionStatusEnum|string  $status
      */
     public function setStatus($status): Transaction
     {
-        $slug = $status instanceof TransactionStatusEnum ? $status->value : $status;
-        return $this->status()->associate(TransactionStatus::slug($slug)->first());
+        $status = match ($status) {
+            $status instanceof TransactionStatus => $status,
+            $status instanceof TransactionStatusEnum => TransactionStatus::slug($status->value)->first(),
+            default => TransactionStatus::slug($status)->first(),
+        };
+
+        return $this->status()->associate($status);
     }
 
     /**
-     * @param TransactionType|string $type
+     * @param  TransactionType|TransactionTypeEnum|string  $type
      */
     public function setType($type): Transaction
     {
-        $slug = $type instanceof TransactionTypeEnum ? $type->value : $type;
-        return $this->type()->associate(TransactionType::slug($slug)->first());
+        $type = match ($type) {
+            $type instanceof TransactionType => $type,
+            $type instanceof TransactionTypeEnum => TransactionType::slug($type->value)->first(),
+            default => TransactionType::slug($type)->first(),
+        };
+
+        return $this->type()->associate($type);
     }
 
     /**
-     * @param PaymentMethod|string $paymentMethod
+     * @param  PaymentMethod|PaymentMethodEnum|string  $paymentMethod
      */
     public function setPaymentMethod($paymentMethod): Transaction
     {
-        $slug = $paymentMethod instanceof PaymentMethodEnum ? $paymentMethod->value : $paymentMethod;
-        return $this->paymentMethod()->associate(PaymentMethod::slug($slug)->first());
+        $paymentMethod = match ($paymentMethod) {
+            $paymentMethod instanceof PaymentMethod => $paymentMethod,
+            $paymentMethod instanceof PaymentMethodEnum => PaymentMethod::slug($paymentMethod->value)->first(),
+            default => PaymentMethod::slug($paymentMethod)->first(),
+        };
+
+        return $this->paymentMethod()->associate($paymentMethod);
+    }
+
+    public static function builder(): TransactionBuilder
+    {
+        return TransactionBuilder::create();
     }
 }

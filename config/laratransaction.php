@@ -6,9 +6,9 @@ return [
     | Tables
     |--------------------------------------------------------------------------
     |
-    | Database table configuration for the subscription system. You can customize
-    | table names and UUID settings for each entity. Default names are provided
-    | but can be overridden using environment variables.
+    | Database table configuration. You can customize table names and
+    | UUID settings for each entity. Default names are provided but
+    | can be overridden using environment variables.
     |
     */
 
@@ -39,8 +39,8 @@ return [
     | Models
     |--------------------------------------------------------------------------
     |
-    | Model class mappings for the subscription system. These classes handle
-    | the business logic for transaction_statuses, transactions, subscriptions, and related
+    | Model class mappings. These classes handle the business logic
+    | for transaction_statuses, transactions, subscriptions, and related
     | entities. You can extend or replace these with your own implementations.
     |
     */
@@ -51,4 +51,19 @@ return [
         'transaction_type' => \Err0r\Laratransaction\Models\TransactionType::class,
         'payment_method' => \Err0r\Laratransaction\Models\PaymentMethod::class,
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Localization
+    |--------------------------------------------------------------------------
+    |
+    | Localization configuration. You can customize the active locales
+    | for the system. Default locales are provided but can be overridden
+    | using environment variables.
+    |
+    */
+
+    'localization' => [
+        'active_locales' => explode(',', env('LARATRANSACTION_ACTIVE_LOCALES', 'ar,en')),
+    ]
 ];
