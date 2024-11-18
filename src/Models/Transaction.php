@@ -37,9 +37,6 @@ class Transaction extends Model
     ];
 
     protected $casts = [
-        'status' => TransactionStatusEnum::class,
-        'type' => TransactionTypeEnum::class,
-        'payment_method' => PaymentMethodEnum::class,
         'metadata' => 'array',
         'processed_at' => 'datetime',
     ];
