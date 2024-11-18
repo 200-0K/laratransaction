@@ -65,5 +65,5 @@ return [
 
     'localization' => [
         'active_locales' => explode(',', env('LARATRANSACTION_ACTIVE_LOCALES', 'ar,en')),
-    ]
+    ],
 ];

@@ -2,9 +2,9 @@
 
 namespace Err0r\Laratransaction\Tests;
 
+use Err0r\Laratransaction\LaratransactionServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Err0r\Laratransaction\LaratransactionServiceProvider;
 
 class TestCase extends Orchestra
 {
