@@ -58,6 +58,12 @@ Optionally, you can publish the translations using:
 php artisan vendor:publish --tag="laratransaction-translations"
 ```
 
+After that, you need to seed the transaction statuses, types, and payment methods:
+
+```bash
+php artisan laratransaction:seed
+```
+
 ## Usage
 
 ### Adding Transactions to Your Models
@@ -75,7 +81,7 @@ class Order extends Model
 
 ### Creating Transactions
 
-Use the fluent `TransactionBuilder` to create transactions:
+Use the fluent helper method to create transactions:
 
 ```php
 use Err0r\Laratransaction\Builders\TransactionBuilder;
@@ -86,6 +92,17 @@ use Err0r\Laratransaction\Enums\PaymentMethod;
 // Create a transaction for an order
 $order = Order::find(1);
 
+$order->transactionBuilder()
+    ->status(TransactionStatus::PENDING)
+    ->type(TransactionType::PAYMENT)
+    ->paymentMethod(PaymentMethod::CREDIT_CARD)
+    ->amount(100.00, 'USD')
+    ->gateway('stripe')
+    ->gatewayTransactionId('ch_123456')
+    ->metadata(['order_id' => 12345])
+    ->save();
+
+// Or use the static method
 $transaction = TransactionBuilder::create()
     ->transactionable($order)
     ->status(TransactionStatus::PENDING)
@@ -95,9 +112,7 @@ $transaction = TransactionBuilder::create()
     ->gateway('stripe')
     ->gatewayTransactionId('ch_123456')
     ->metadata(['order_id' => 12345])
-    ->build();
-
-$transaction->save();
+    ->save();
 ```
 
 ### Querying Transactions
@@ -121,10 +136,10 @@ Transaction::cancelled()->get();
 ### Checking Transaction Status
 
 ```php
-$transaction->isPending();    // Check if pending
-$transaction->isCompleted();  // Check if completed
-$transaction->isFailed();     // Check if failed
-$transaction->isCancelled();  // Check if cancelled
+$transaction->isPending();  
+$transaction->isCompleted();
+$transaction->isFailed();   
+$transaction->isCancelled();
 ```
 
 ### Updating Transaction Status
@@ -132,7 +147,33 @@ $transaction->isCancelled();  // Check if cancelled
 ```php
 use Err0r\Laratransaction\Enums\TransactionStatus;
 
+$transaction->markAsCompleted();
+$transaction->markAsFailed();
+$transaction->markAsCancelled();
+```
+
+Or set the status directly:
+
+```php
 $transaction->setStatus(TransactionStatus::COMPLETED);
+$transaction->save();
+```
+
+### Updating Transaction Types
+
+```php
+use Err0r\Laratransaction\Enums\TransactionType;
+
+$transaction->setType(TransactionType::REFUND);
+$transaction->save();
+```
+
+### Updating Payment Methods
+
+```php
+use Err0r\Laratransaction\Enums\PaymentMethod;
+
+$transaction->setPaymentMethod(PaymentMethod::BANK_TRANSFER);
 $transaction->save();
 ```
 

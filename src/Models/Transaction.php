@@ -158,7 +158,7 @@ class Transaction extends Model
         return $this->paymentMethod()->associate($paymentMethod);
     }
 
-    public function markAsPaid(): bool
+    public function markAsCompleted(): bool
     {
         $this->status_id = TransactionStatus::slug(TransactionStatusEnum::COMPLETED->value)->first()->id;
         $this->processed_at = now();
