@@ -158,6 +158,28 @@ class Transaction extends Model
         return $this->paymentMethod()->associate($paymentMethod);
     }
 
+    public function markAsPaid(): bool
+    {
+        $this->status_id = TransactionStatus::slug(TransactionStatusEnum::COMPLETED->value)->first()->id;
+        $this->processed_at = now();
+        
+        return $this->save();
+    }
+
+    public function markAsFailed(): bool
+    {
+        $this->status_id = TransactionStatus::slug(TransactionStatusEnum::FAILED->value)->first()->id;
+        
+        return $this->save();
+    }
+
+    public function markAsCancelled(): bool
+    {
+        $this->status_id = TransactionStatus::slug(TransactionStatusEnum::CANCELLED->value)->first()->id;
+        
+        return $this->save();
+    }
+
     public static function builder(): TransactionBuilder
     {
         return TransactionBuilder::create();
