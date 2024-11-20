@@ -17,9 +17,9 @@ class TransactionResource extends JsonResource
         return [
             'id' => $this->id,
             'transactionable' => $this->whenLoaded('transactionable'),
-            'status' => new TransactionStatusResource($this->whenLoaded('status')),
-            'type' => new TransactionTypeResource($this->whenLoaded('type')),
-            'payment_method' => new PaymentMethodResource($this->whenLoaded('paymentMethod')),
+            'status' => new (config('laratransaction.resources.transaction_status'))($this->whenLoaded('status')),
+            'type' => new (config('laratransaction.resources.transaction_type'))($this->whenLoaded('type')),
+            'payment_method' => new (config('laratransaction.resources.payment_method'))($this->whenLoaded('paymentMethod')),
             'amount' => $this->amount,
             'currency' => $this->currency,
             // 'gateway' => $this->gateway,

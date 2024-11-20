@@ -54,6 +54,23 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Resources
+    |--------------------------------------------------------------------------
+    |
+    | Resource class mappings. These classes transform models into JSON
+    | responses. You can extend or replace these with your own implementations.
+    |
+    */
+
+    'resources' => [
+        'transaction' => \Err0r\Laratransaction\Resources\TransactionResource::class,
+        'transaction_status' => \Err0r\Laratransaction\Resources\TransactionStatusResource::class,
+        'transaction_type' => \Err0r\Laratransaction\Resources\TransactionTypeResource::class,
+        'payment_method' => \Err0r\Laratransaction\Resources\PaymentMethodResource::class,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Localization
     |--------------------------------------------------------------------------
     |
