@@ -3,6 +3,10 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/err0r/laratransaction.svg?style=flat-square)](https://packagist.org/packages/err0r/laratransaction)
 [![Total Downloads](https://img.shields.io/packagist/dt/err0r/laratransaction.svg?style=flat-square)](https://packagist.org/packages/err0r/laratransaction)
 
+> [!IMPORTANT]  
+> This package is currently under development and is **not yet ready for production use**.  
+> Click the **Watch** button to stay updated and be notified when the package is ready for deployment!
+
 This package provides a complete transaction management system for Laravel applications, offering powerful features: 
 
 💳 **Payment Processing**
