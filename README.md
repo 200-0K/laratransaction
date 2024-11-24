@@ -1,4 +1,4 @@
-# Laravel Payment Transactions Helper
+# Laravel Payment Transactions Package
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/err0r/laratransaction.svg?style=flat-square)](https://packagist.org/packages/err0r/laratransaction)
 [![Total Downloads](https://img.shields.io/packagist/dt/err0r/laratransaction.svg?style=flat-square)](https://packagist.org/packages/err0r/laratransaction)
