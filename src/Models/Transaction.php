@@ -158,6 +158,57 @@ class Transaction extends Model
         return $this->paymentMethod()->associate($paymentMethod);
     }
 
+    public function setAmount(float $amount, ?string $currency = null): Transaction
+    {
+        $this->amount = $amount;
+
+        if ($amount < 0) {
+            throw new \InvalidArgumentException('Amount cannot be negative');
+        }
+
+        if ($currency !== null) {
+            $this->currency = $currency;
+        }
+
+        $this->save();
+        return $this;
+    }
+
+    public function setCurrency(string $currency): Transaction
+    {
+        $this->currency = $currency;
+
+        $this->save();
+        return $this;
+    }
+
+    public function setGateway(string $gateway, ?string $gatewayTransactionId = null): Transaction
+    {
+        $this->gateway = $gateway;
+        if ($gatewayTransactionId !== null) {
+            $this->gateway_transaction_id = $gatewayTransactionId;
+        }
+
+        $this->save();
+        return $this;
+    }
+
+    public function setGatewayTransactionId(string $gatewayTransactionId): Transaction
+    {
+        $this->gateway_transaction_id = $gatewayTransactionId;
+
+        $this->save();
+        return $this;
+    }
+
+    public function setMetadata(array $metadata): Transaction
+    {
+        $this->metadata = $metadata;
+
+        $this->save();
+        return $this;
+    }
+
     public function markAsCompleted(): bool
     {
         $this->status_id = TransactionStatus::slug(TransactionStatusEnum::COMPLETED->value)->first()->id;
