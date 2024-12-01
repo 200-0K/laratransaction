@@ -16,6 +16,7 @@ return [
         'credit_card' => 'بطاقة ائتمان',
         'bank_transfer' => 'تحويل بنكي',
         'cash' => 'نقدي',
+        'paypal' => 'باي بال',
         'other' => 'آخر',
     ],
 ];

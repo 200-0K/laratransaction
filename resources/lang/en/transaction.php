@@ -16,6 +16,7 @@ return [
         'credit_card' => 'Credit Card',
         'bank_transfer' => 'Bank Transfer',
         'cash' => 'Cash',
+        'paypal' => 'PayPal',
         'other' => 'Other',
     ],
 ];
