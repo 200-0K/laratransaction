@@ -6,4 +6,5 @@ enum TransactionType: string
 {
     case PAYMENT = 'payment';
     case REFUND = 'refund';
+    case CANCEL = 'cancel';
 }

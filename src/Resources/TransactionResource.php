@@ -24,7 +24,7 @@ class TransactionResource extends JsonResource
             'currency' => $this->currency,
             // 'gateway' => $this->gateway,
             // 'gateway_transaction_id' => $this->gateway_transaction_id,
-            'metadata' => $this->metadata,
+            // 'metadata' => $this->metadata,
             'processed_at' => $this->processed_at,
 
             'created_at' => $this->created_at,
