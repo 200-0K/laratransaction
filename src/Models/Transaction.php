@@ -6,7 +6,7 @@ use Err0r\Laratransaction\Builders\TransactionBuilder;
 use Err0r\Laratransaction\Enums\PaymentMethod as PaymentMethodEnum;
 use Err0r\Laratransaction\Enums\TransactionStatus as TransactionStatusEnum;
 use Err0r\Laratransaction\Enums\TransactionType as TransactionTypeEnum;
-use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -68,24 +68,39 @@ class Transaction extends Model
         return $this->morphTo();
     }
 
-    public function scopePending($query): Builder
+    public function scopePending(Builder $query): Builder
     {
         return $query->whereHas('status', fn ($query) => $query->slug(TransactionStatusEnum::PENDING->value));
     }
 
-    public function scopeCompleted($query): Builder
+    public function scopeCompleted(Builder $query): Builder
     {
         return $query->whereHas('status', fn ($query) => $query->slug(TransactionStatusEnum::COMPLETED->value));
     }
 
-    public function scopeFailed($query): Builder
+    public function scopeFailed(Builder $query): Builder
     {
         return $query->whereHas('status', fn ($query) => $query->slug(TransactionStatusEnum::FAILED->value));
     }
 
-    public function scopeCancelled($query): Builder
+    public function scopeCancelled(Builder $query): Builder
     {
         return $query->whereHas('status', fn ($query) => $query->slug(TransactionStatusEnum::CANCELLED->value));
+    }
+
+    public function scopeWhereGateway(Builder $query, string $gateway): Builder
+    {
+        return $query->where('gateway', '=', $gateway);
+    }
+
+    public function scopeWhereGatewayTransactionId(Builder $query, string $gatewayTransactionId): Builder
+    {
+        return $query->where('gateway_transaction_id', '=', $gatewayTransactionId);
+    }
+
+    public function scopeWhereMetadata(Builder $query, string $key, $value): Builder
+    {
+        return $query->whereJsonContains('metadata', [$key => $value]);
     }
 
     /**
