@@ -10,6 +10,7 @@ return [
     'type' => [
         'payment' => 'Payment',
         'refund' => 'Refund',
+        'cancel' => 'Cancel',
     ],
     'payment_method' => [
         'credit_card' => 'Credit Card',

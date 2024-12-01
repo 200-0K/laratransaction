@@ -3,13 +3,14 @@
 return [
     'status' => [
         'pending' => 'قيد الانتظار',
-        'completed' => 'تمت العملية',
-        'failed' => 'فشلت العملية',
-        'cancelled' => 'تم الإلغاء',
+        'completed' => 'مكتمل',
+        'failed' => 'فشل',
+        'cancelled' => 'ملغى',
     ],
     'type' => [
         'payment' => 'دفع',
         'refund' => 'استرداد',
+        'cancel' => 'إلغاء',
     ],
     'payment_method' => [
         'credit_card' => 'بطاقة ائتمان',
