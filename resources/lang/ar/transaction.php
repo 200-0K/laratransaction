@@ -5,6 +5,7 @@ return [
         'pending' => 'قيد الانتظار',
         'completed' => 'مكتمل',
         'failed' => 'فشل',
+        'expired' => 'منتهي',
         'cancelled' => 'ملغى',
     ],
     'type' => [

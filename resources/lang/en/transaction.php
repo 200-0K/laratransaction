@@ -5,6 +5,7 @@ return [
         'pending' => 'Pending',
         'completed' => 'Completed',
         'failed' => 'Failed',
+        'expired' => 'Expired',
         'cancelled' => 'Cancelled',
     ],
     'type' => [
