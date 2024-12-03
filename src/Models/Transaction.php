@@ -98,6 +98,42 @@ class Transaction extends Model
         return $query->where('gateway_transaction_id', '=', $gatewayTransactionId);
     }
 
+    /**
+     * @param  string|TransactionStatus|TransactionStatusEnum  $status
+     */
+    public function scopeWhereStatus(Builder $query, $status): Builder
+    {
+        return match (true) {
+            $status instanceof TransactionStatus => $query->where('status_id', '=', $status->id),
+            $status instanceof TransactionStatusEnum => $query->whereHas('status', fn ($query) => $query->slug($status->value)),
+            default => $query->whereHas('status', fn ($query) => $query->slug($status)),
+        };
+    }
+
+    /**
+     * @param  string|TransactionType|TransactionTypeEnum  $type
+     */
+    public function scopeWhereType(Builder $query, $type): Builder
+    {
+        return match (true) {
+            $type instanceof TransactionType => $query->where('type_id', '=', $type->id),
+            $type instanceof TransactionTypeEnum => $query->whereHas('type', fn ($query) => $query->slug($type->value)),
+            default => $query->whereHas('type', fn ($query) => $query->slug($type)),
+        };
+    }
+
+    /**
+     * @param  PaymentMethod|PaymentMethodEnum|string  $paymentMethod
+     */
+    public function scopeWherePaymentMethod(Builder $query, $paymentMethod): Builder
+    {
+        return match (true) {
+            $paymentMethod instanceof PaymentMethod => $query->where('payment_method_id', '=', $paymentMethod->id),
+            $paymentMethod instanceof PaymentMethodEnum => $query->whereHas('paymentMethod', fn ($query) => $query->slug($paymentMethod->value)),
+            default => $query->whereHas('paymentMethod', fn ($query) => $query->slug($paymentMethod)),
+        };
+    }
+
     public function scopeWhereMetadata(Builder $query, string $key, $value): Builder
     {
         return $query->whereJsonContains('metadata', [$key => $value]);
