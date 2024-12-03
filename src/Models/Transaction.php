@@ -140,6 +140,18 @@ class Transaction extends Model
     }
 
     /**
+     * @param string|TransactionStatus|TransactionStatusEnum  $status
+     */
+    public function scopeUpdateStatus(Builder $query, $status): int
+    {
+        return $query->update(['status_id' => match (true) {
+            $status instanceof TransactionStatus => $status->id,
+            $status instanceof TransactionStatusEnum => TransactionStatus::slug($status->value)->first()->id,
+            default => TransactionStatus::slug($status)->first()->id,
+        }]);
+    }
+
+    /**
      * @param  string|TransactionStatus|TransactionStatusEnum  $status
      */
     public function isStatus($status): bool
