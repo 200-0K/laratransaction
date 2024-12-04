@@ -273,7 +273,7 @@ class Transaction extends Model
         return $this;
     }
 
-    public function markAsCompleted(?Carbon $processedAt): bool
+    public function markAsCompleted(?Carbon $processedAt = null): bool
     {
         $this->status_id = TransactionStatus::slug(TransactionStatusEnum::COMPLETED->value)->first()->id;
         $this->processed_at = $processedAt ?? now();
