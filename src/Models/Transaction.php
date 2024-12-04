@@ -2,6 +2,7 @@
 
 namespace Err0r\Laratransaction\Models;
 
+use Carbon\Carbon;
 use Err0r\Laratransaction\Builders\TransactionBuilder;
 use Err0r\Laratransaction\Enums\PaymentMethod as PaymentMethodEnum;
 use Err0r\Laratransaction\Enums\TransactionStatus as TransactionStatusEnum;
@@ -272,10 +273,10 @@ class Transaction extends Model
         return $this;
     }
 
-    public function markAsCompleted(): bool
+    public function markAsCompleted(?Carbon $processedAt): bool
     {
         $this->status_id = TransactionStatus::slug(TransactionStatusEnum::COMPLETED->value)->first()->id;
-        $this->processed_at = now();
+        $this->processed_at = $processedAt ?? now();
         
         return $this->save();
     }
