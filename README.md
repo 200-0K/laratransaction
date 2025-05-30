@@ -187,9 +187,6 @@ $transaction->save();
 // Get all transactions for a model
 $order->transactions;
 
-// Get the latest transaction
-$order->latestTransaction;
-
 // Access transaction details
 $transaction->status;     // TransactionStatus model
 $transaction->type;       // TransactionType model

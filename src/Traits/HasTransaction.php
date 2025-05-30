@@ -13,14 +13,6 @@ trait HasTransaction
         return $this->morphMany(config('laratransaction.models.transaction'), 'transactionable');
     }
 
-    /**
-     * @return Transaction
-     */
-    public function latestTransaction()
-    {
-        return $this->morphOne(config('laratransaction.models.transaction'), 'transactionable')->latest();
-    }
-
     public function transactionBuilder(): TransactionBuilder
     {
         return TransactionBuilder::create($this);
