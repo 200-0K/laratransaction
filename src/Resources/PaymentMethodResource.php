@@ -2,9 +2,12 @@
 
 namespace Err0r\Laratransaction\Resources;
 
+use Err0r\Laratransaction\Models\PaymentMethod;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+
+/** @mixin PaymentMethod */
 class PaymentMethodResource extends JsonResource
 {
     /**
@@ -15,7 +18,7 @@ class PaymentMethodResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getKey(),
             'slug' => $this->slug,
             'name' => $this->name,
             'description' => $this->when(! empty($this->description), $this->description),

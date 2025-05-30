@@ -2,12 +2,22 @@
 
 namespace Err0r\Laratransaction\Models;
 
+use Carbon\Carbon;
 use Err0r\Laratransaction\Traits\Sluggable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 
+/**
+ * @property string $id
+ * @property string $slug
+ * @property array $name
+ * @property array|null $description
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Transaction> $transactions
+ */
 class TransactionType extends Model
 {
     use HasFactory;

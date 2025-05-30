@@ -14,6 +14,27 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
+/**
+ * @property string $id
+ * @property string $transactionable_type
+ * @property string $transactionable_id
+ * @property string $status_id
+ * @property string $type_id
+ * @property string $payment_method_id
+ * @property float $amount
+ * @property string $currency
+ * @property string|null $gateway
+ * @property string|null $gateway_transaction_id
+ * @property array|null $metadata
+ * @property Carbon|null $processed_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property-read TransactionStatus $status
+ * @property-read TransactionType $type
+ * @property-read PaymentMethod $paymentMethod
+ * @property-read Model $transactionable
+ */
 class Transaction extends Model
 {
     use HasFactory;

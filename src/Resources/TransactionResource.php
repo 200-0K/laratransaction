@@ -2,9 +2,11 @@
 
 namespace Err0r\Laratransaction\Resources;
 
+use Err0r\Laratransaction\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/** @mixin Transaction */
 class TransactionResource extends JsonResource
 {
     /**
@@ -15,7 +17,7 @@ class TransactionResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getKey(),
             'transactionable' => $this->whenLoaded('transactionable'),
             'status' => new (config('laratransaction.resources.transaction_status'))($this->whenLoaded('status')),
             'type' => new (config('laratransaction.resources.transaction_type'))($this->whenLoaded('type')),
