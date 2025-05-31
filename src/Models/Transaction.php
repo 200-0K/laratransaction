@@ -59,6 +59,7 @@ class Transaction extends Model
     ];
 
     protected $casts = [
+        'amount' => 'float',
         'metadata' => 'array',
         'processed_at' => 'datetime',
     ];
